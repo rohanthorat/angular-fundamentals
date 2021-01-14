@@ -10,6 +10,7 @@ export class ProductListComponent implements OnInit {
   public imageWidth = 50;
   public imageMargin = 2;
   public showImage = false;
+  public listFilter = "cart";
   products: any[] = [
     {
       "productId": 1,
