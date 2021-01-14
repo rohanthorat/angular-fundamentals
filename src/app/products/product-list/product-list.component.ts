@@ -6,9 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./product-list.component.scss']
 })
 export class ProductListComponent implements OnInit {
-  pageTitle: string = 'Product List';
-  imageWidth: number = 50;
-  imageMargin: number = 2;
+  public pageTitle = 'Product List';
+  public imageWidth = 50;
+  public imageMargin = 2;
+  public showImage = false;
   products: any[] = [
     {
       "productId": 1,
@@ -32,6 +33,10 @@ export class ProductListComponent implements OnInit {
     }];
 
   constructor() { }
+
+  public toggleImage(): void {
+    this.showImage = !this.showImage;
+  }
 
   ngOnInit(): void {
   }
