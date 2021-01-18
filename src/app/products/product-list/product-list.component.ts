@@ -11,7 +11,18 @@ export class ProductListComponent implements OnInit {
   public imageWidth = 50;
   public imageMargin = 2;
   public showImage = false;
-  public listFilter = "cart";
+  public _listFilter: string;
+  public filteredProducts: IProduct[];
+
+  public get listFilter(): string {
+    return this._listFilter;
+  }
+
+  public set listFilter(value: string) {
+    this._listFilter = value;
+    this.filteredProducts = this._listFilter ? this.performFilter(this._listFilter) : this.products;
+  }
+
   products: IProduct[] = [
     {
       "productId": 1,
@@ -34,13 +45,25 @@ export class ProductListComponent implements OnInit {
       "imageUrl": "assets/images/garden_cart.png"
     }];
 
-  constructor() { }
+  constructor() { 
+    this.setDefaultValues();
+  }
+
+  private setDefaultValues(): void {
+    this.filteredProducts = this.products;
+    this.listFilter = 'cart';
+  }
 
   public toggleImage(): void {
     this.showImage = !this.showImage;
   }
 
-  ngOnInit(): void {
+  private performFilter(filterBy: string): IProduct[] {
+    filterBy = filterBy.toLocaleLowerCase();
+    return this.products.filter((product: IProduct) => 
+      product.productName.toLocaleLowerCase().indexOf(filterBy) !== -1);
   }
+
+  ngOnInit(): void { }
 
 }
